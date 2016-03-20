@@ -9,25 +9,24 @@
 import UIKit
 import MapKit
 
-class PhotoMapViewController: UIViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate {
-    
+
+
+class PhotoMapViewController: UIViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate, LocationsViewControllerDelegate{
     
     @IBOutlet weak var mapView: MKMapView!
 
     override func viewDidLoad() {
         super.viewDidLoad()
-
-        // Do any additional setup after loading the view.
         
+        
+        // Do any additional setup after loading the view.
         //one degree of latitude is approximately 111 kilometers (69 miles) at all times.
         let sfRegion = MKCoordinateRegionMake(CLLocationCoordinate2DMake(37.783333, -122.416667),
             MKCoordinateSpanMake(0.1, 0.1))
         mapView.setRegion(sfRegion, animated: false)
+        
+        
     }
-    
-    
-    
-    
     
     @IBAction func onCamara(sender: AnyObject) {
         //Step 1: Instantiate a UIImagePickerController
@@ -54,29 +53,27 @@ class PhotoMapViewController: UIViewController, UIImagePickerControllerDelegate,
             dismissViewControllerAnimated(true, completion: {self.performSegueWithIdentifier("tagSegue", sender: nil)})
     }
     
+    func locationsPickedLocation(controller: LocationsViewController, latitude: NSNumber, longitude: NSNumber){
     
-    
-    
-    
-    
-    
-    
+    }
     
     
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
-    
-
-    /*
     // MARK: - Navigation
-
     // In a storyboard-based application, you will often want to do a little preparation before navigation
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+        let locationVC = segue.destinationViewController as! LocationsViewController
+        
+        locationVC.delegate = self
         // Get the new view controller using segue.destinationViewController.
         // Pass the selected object to the new view controller.
     }
-    */
+    
+    
+    
+    
 
 }
